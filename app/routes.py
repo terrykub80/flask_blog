@@ -3,7 +3,9 @@ from flask import render_template
 
 @app.route('/')
 def index():
-    return render_template('index.html', name='Terry')
+    fruits = ['apple', 'banana', 'orange', 'strawberry', 'watermelon', 'mango', 'blueberry']
+    return render_template('index.html', name='Terry', fruits=fruits)
+    
 
 
 @app.route('/posts')
