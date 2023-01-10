@@ -13,11 +13,11 @@
     {{ fruits }}
     <h4>My favorite fruits are:</h4>
     <ul>
-        {% for fruit in fruits %}
-            {% if fruit[-1] == 'y' %}
-                <li>{{ fruit.upper() }}</li>
+        {% for f in fruits %}
+            {% if f[-1] == 'y' %}
+                <li>{{ f.upper() }}</li>
             {% else %}
-                <li>{{ fruit.lower() }}</li>
+                <li>{{ f.lower() }}</li>
             {% endif %}
         {% endfor %}
     </ul>
