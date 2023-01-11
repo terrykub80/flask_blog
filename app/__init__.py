@@ -20,7 +20,7 @@ db = SQLAlchemy(app)
 #Create and instance of the Migrate to represent migration engine
 migrate = Migrate(app, db)
 
-# Import all of the routes from the routes file into the current folder
-from . import routes
+# Import all of the routes and models from the routes and models files into the current folder
+from . import routes, models
 
 
