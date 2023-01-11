@@ -7,3 +7,6 @@ venv
 
 # Ignore environment variables
 .env
+
+# Ignore app.db (it's a local development database -- just for testing)
+app.db
