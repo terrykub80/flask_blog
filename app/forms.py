@@ -15,3 +15,9 @@ class LogInForm(FlaskForm):
     username = StringField('Username', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired()])
     submit = SubmitField("Let's Go!")
+
+
+class PostForm(FlaskForm):
+    title = StringField('Title', validators=[InputRequired()])
+    body = StringField('Body', validators=[InputRequired()])
+    submit = SubmitField("Submit Your Post")
