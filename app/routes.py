@@ -6,12 +6,14 @@ from app.models import User, Post
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    posts = Post.query.all()
+    return render_template('index.html', posts=posts)
     
 
 @app.route('/posts')
 def posts():
-    return render_template('posts.html')
+    posts = Post.query.all()
+    return render_template('posts.html', posts=posts)
 
 
 @app.route('/signup', methods=["GET", "POST"])
@@ -86,4 +88,5 @@ def create_post():
         new_post = Post(title=title, body=body, user_id=current_user.id)
         flash(f"{new_post.title} has been created!", "success")
         return redirect(url_for('index'))
+                
     return render_template('create.html', form=form)
