@@ -23,6 +23,10 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 # Create an instance of LoginManager and pass in app
 login = LoginManager(app)
+# Set the login view to redirect unauthorized users
+login.login_view = 'login'
+login.login_message = 'You must be logged in to perform this action'
+login.login_message_category = 'danger'
 
 # Import all of the routes and models from the routes and models files into the current folder
 from . import routes, models

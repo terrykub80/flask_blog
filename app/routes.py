@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, redirect, url_for, flash
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required
 from app.forms import SignUpForm, LogInForm
 from app.models import User
 
@@ -8,7 +8,6 @@ from app.models import User
 def index():
     return render_template('index.html')
     
-
 
 @app.route('/posts')
 def posts():
@@ -74,4 +73,8 @@ def logout():
     return redirect(url_for('index'))
 
 
-    
+
+@app.route('/create-post')
+@login_required
+def create_post():
+    return render_template('create.html')
