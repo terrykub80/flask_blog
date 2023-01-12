@@ -2,22 +2,13 @@
 
 {% block title %} Home {% endblock %}
 
+
 {% block content %}
-
-        <h1>Hello {{ name }}, welcome to the blog!</h1>
-        <h4>{{ 10 + 5 }}</h4>
-
-        {{ fruits }}
-        I love {{ fruits[0] }}s!
-        <h4>My favorite fruits are:</h4>
-        <ul>
-            {% for f in fruits %}
-                {% if f[-1] == 'y' %}
-                    <li>{{ f.upper() }}</li>
-                {% else %}
-                    <li>{{ f.lower() }}</li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-
+{% if current_user.is_authenticated %}
+<h1 class="text-center">Welcome Back, {{ current_user.username }}!</h1>
+{% else %}
+<h1 class="text-center">Hello World</h1>
+{% endif %}
 {% endblock %}
+
+

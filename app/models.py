@@ -12,13 +12,16 @@ class User(db.Model, UserMixin):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.password = generate_password_hash(kwargs.get['password'])
+        self.password = generate_password_hash(kwargs['password'])
         db.session.add(self)
         db.session.commit()
         
 
     def __repr__(self):
         return f"<User: {self.id} | {self.username}>"
+
+    def check_password(self, password_guess):
+        return check_password_hash(self.password, password_guess)
 
     
 @login.user_loader

@@ -1,12 +1,12 @@
 from app import app
 from flask import render_template, redirect, url_for, flash
+from flask_login import login_user, logout_user
 from app.forms import SignUpForm, LogInForm
 from app.models import User
 
 @app.route('/')
 def index():
-    fruits = ['apple', 'banana', 'orange', 'strawberry', 'watermelon', 'mango', 'blueberry']
-    return render_template('index.html', name='Terry', fruits=fruits)
+    return render_template('index.html')
     
 
 
@@ -47,9 +47,31 @@ def login():
     form = LogInForm()
 
     if form.validate_on_submit():
-        print('Form Submitted and Validated')
+        # Get username and password from the form
         username = form.username.data
         password = form.password.data
+        print(username, password)
+        # Query the user table to see if user exists
+        user = User.query.filter_by(username = username).first()
+        # Check if user and that password is correct
+        if user is not None and user.check_password(password):
+            # Log the user in
+            login_user(user)
+            flash(f"Welcome back {user.username}! You are now logged in!", "success")
+            return redirect(url_for('index'))
+        else:
+            flash("Incorrect username and/or password", "danger")
+            redirect(url_for('login'))
+        
     # verify_user = User.query.filter( (User.username == username) | (User.password == password) ).all()
     return render_template('login.html', form=form)
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash("You have been logged out", "warning")
+    return redirect(url_for('index'))
+
+
     
