@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, redirect, url_for, flash
-from app.forms import SignUpForm
+from app.forms import SignUpForm, LogInForm
 from app.models import User
 
 @app.route('/')
@@ -28,7 +28,7 @@ def signup():
         password = form.password.data
         print(email, username, password)
         # Check to see if there is a user with username and/or email
-        check_user = User.query.filter( (User.username == username) | (User.email == email) ).all()
+        check_user = User.query.filter( (User.username == username) | (User.email == email) ).first()
         if check_user:
             flash(f"The username {username} already exists. Please try again.", 'danger')
             return redirect(url_for('signup'))
@@ -41,3 +41,14 @@ def signup():
 
     return render_template('signup.html', form=form)
 
+
+@app.route('/login')
+def login():
+    form = LogInForm()
+
+    if form.validate_on_submit():
+        print('Form Submitted and Validated')
+        username = form.username.data
+        password = form.password.data
+    return render_template('login.html', form=form)
+    

@@ -11,7 +11,7 @@ class User(db.Model):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.password = generate_password_hash(kwargs['password'])
+        self.password = generate_password_hash(kwargs.get['password'])
         db.session.add(self)
         db.session.commit()
         
