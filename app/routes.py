@@ -42,7 +42,7 @@ def signup():
     return render_template('signup.html', form=form)
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LogInForm()
 
@@ -50,5 +50,6 @@ def login():
         print('Form Submitted and Validated')
         username = form.username.data
         password = form.password.data
+    # verify_user = User.query.filter( (User.username == username) | (User.password == password) ).all()
     return render_template('login.html', form=form)
     
