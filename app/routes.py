@@ -11,6 +11,7 @@ def index():
     
 
 @app.route('/posts')
+@login_required
 def posts():
     posts = Post.query.all()
     return render_template('posts.html', posts=posts)
@@ -88,5 +89,5 @@ def create_post():
         new_post = Post(title=title, body=body, user_id=current_user.id)
         flash(f"{new_post.title} has been created!", "success")
         return redirect(url_for('index'))
-                
+
     return render_template('create.html', form=form)
