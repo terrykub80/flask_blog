@@ -91,3 +91,13 @@ def create_post():
         return redirect(url_for('index'))
 
     return render_template('create.html', form=form)
+
+
+@app.route('/posts/<int:post_id>')
+def get_post(post_id):
+    # post = Post.query.get_or_404(post_id)
+    post = Post.query.get(post_id)
+    if not post:
+        flash(f"A post with id {post_id} does not exist", "danger")
+        return redirect(url_for('index'))
+    return render_template('my_posts.html', post=post)
