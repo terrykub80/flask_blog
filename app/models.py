@@ -10,6 +10,9 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(256), nullable=False)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+    # Added two more columns for token and token_expiration
+    token = db.Column(db.String(32), index=True, unique=True)
+    token_expiration = db.Column(db.DateTime)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
