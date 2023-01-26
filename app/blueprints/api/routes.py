@@ -1,6 +1,6 @@
 from flask import request
 from . import api
-from app.models import Post
+from app.models import Post, User
 
 @api.route('/')
 def index():
@@ -47,3 +47,11 @@ def create_post():
     return new_post.to_dict(), 201
 
     
+
+
+
+# Endpoint to get a single user by id
+@api.route('/users/<int:user_id>')
+def get_user(user_id):
+    user = User.query.get_or_404(user_id)
+    return user.to_dict()
