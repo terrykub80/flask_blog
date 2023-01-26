@@ -78,7 +78,6 @@ def create_user():
     if existing_user:
         return {'error': 'User with this username and/or email already exists'}, 400
     
-
     # Create a new instance of user
     new_user = User(username=username, email=email, password=password)
     # Send back new user info
