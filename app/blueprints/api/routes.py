@@ -55,3 +55,33 @@ def create_post():
 def get_user(user_id):
     user = User.query.get_or_404(user_id)
     return user.to_dict()
+
+
+# Endpoint to create a new user
+@api.route('/users', methods=['POST'])
+def create_user():
+    # Check to see that the request sent a request body that is JSON
+    if not request.is_json:
+        return {'error': 'Your request content-type must be application/json'}, 400
+    data = request.json
+    for field in ['username', 'email', 'password']:
+        if field not in data:
+            # If the field is not in the request body, throw an error saying they are missing that field
+            return {'error': f"{field} must be in request body"}, 400
+    # pull individual values from the request body
+    username = data.get('username')
+    email = data.get('email')
+    password = data.get('password')
+
+    # Check to see if there is already a User with that username/email
+    existing_user = User.query.filter((User.username == username)|(User.email == email)).first()
+    if existing_user:
+        return {'error': 'User with this username and/or email already exists'}, 400
+    
+
+    # Create a new instance of user
+    new_user = User(username=username, email=email, password=password)
+    # Send back new user info
+    return new_user.to_dict(), 201
+    
+    
